@@ -22,4 +22,16 @@ describe Array do
       expect(a).not_to eq(b)
     end
   end
+
+  describe "#patched_quick_sort!" do
+    it "also actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_quick_sort!)
+    end
+
+    it "mutates the array" do
+      a = Array.new(SIZE) { rand(I_MIN..I_MAX) }
+      b = a.patched_quick_sort!
+      expect(a).to eq(b)
+    end
+  end
 end

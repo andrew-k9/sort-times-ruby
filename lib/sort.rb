@@ -2,8 +2,8 @@ class Sort
   attr_reader :original_array, :sorted_array, :time
 
   # makes a copy of the array for all instances
-  def initialize(array = nil)
-    @original_array = array.nil? ? Sort.populate_array(size: 100) : array.map(&:clone)
+  def initialize(array = nil, size = 1000)
+    @original_array = array.nil? ? Sort.populate_array(size: size) : array.map(&:clone)
   end
 
   # sorts an array of data given the sorting method as an argument
@@ -11,10 +11,10 @@ class Sort
   #  `:qs`, `:sort` (default sort), `:merge`, or `bogo`
   # @return [Array<Numeric>] @sorted_array
   def sort(sort_method = :sort)
-    raise_arg_error(sort_method, "sort") unless [:quick_sort, :sort, :bogo, :merge].include? sort_method
+    raise_arg_error(sort_method, "sort") unless %i[quick_sort sort bogo merge].include? sort_method
 
-    result = sort_method == :sort ? sort_method : "patched_#{sort_method.to_s}".to_sym
-    set_sorted_array_and_time(result)
+    result = sort_method == :sort ? sort_method : "patched_#{sort_method}".to_sym
+    update_sorted_array_and_time(result)
   end
 
   def print_sort_info
@@ -38,7 +38,7 @@ private
   # times the execution of a sort function called on array
   # @param sort_method [Symbol, nil] A symbol with the sorting method to use, see #sort
   # @return [Array<Numeric>] @sorted_array
-  def set_sorted_array_and_time(sort_method)
+  def update_sorted_array_and_time(sort_method)
     start = Time.now
     @sorted_array = @original_array.send(sort_method)
     finish = Time.now
@@ -47,6 +47,6 @@ private
   end
 
   def raise_arg_error(arg, caller)
-    raise ArgumentError, "`#{arg.to_s}` not defined for #{caller}"
+    raise ArgumentError, "`#{arg}` not defined for #{caller}"
   end
 end
