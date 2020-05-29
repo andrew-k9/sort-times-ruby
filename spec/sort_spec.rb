@@ -19,7 +19,19 @@ describe Array do
     it "does not mutate the original array" do
       a = [1,8,2,4,7,6,4,0]
       b = a.patched_quick_sort
-      expect(a).should_not eq(b)
+      expect(a).not_to eq(b)
+    end
+  end
+
+  describe "#patched_quick_sort!" do
+    it "also actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_quick_sort!)
+    end
+
+    it "mutates the array" do
+      a = Array.new(SIZE) { rand(I_MIN..I_MAX) }
+      b = a.patched_quick_sort!
+      expect(a).to eq(b)
     end
   end
 end
