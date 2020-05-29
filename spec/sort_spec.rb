@@ -19,7 +19,7 @@ describe Array do
     it "does not mutate the original array" do
       a = [1,8,2,4,7,6,4,0]
       b = a.patched_quick_sort
-      expect(a).should_not eq(b)
+      expect(a).not_to eq(b)
     end
   end
 end
