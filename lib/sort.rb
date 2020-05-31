@@ -1,3 +1,5 @@
+require "memory_profiler"
+
 class Sort
   attr_reader :original_array, :sorted_array, :time
 
@@ -16,6 +18,21 @@ class Sort
 
     result = sort_method == :sort ? sort_method : "patched_#{sort_method}".to_sym
     update_sorted_array_and_time(result)
+  end
+
+  # prints the runtime data of a sorting algorithm
+  # @param array_type [String] word describing the type of array to profile
+  # @param sorting_method [Symbol] named sorting algorithm to profile
+  def info(array_type, sorting_method)
+    puts "-------------------------------------"
+    puts "Info for a #{array_type} array using #{sorting_method}"
+    puts "Array starting with: #{@original_array[0..4]}"
+    report = MemoryProfiler.report do
+      sort(sorting_method)
+    end
+    print_sort_info
+    puts "Memory size in bytes: #{report.total_allocated_memsize}"
+    print "\n"
   end
 
   def print_sort_info
