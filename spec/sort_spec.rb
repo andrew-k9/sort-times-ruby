@@ -34,4 +34,20 @@ describe Array do
       expect(a).to eq(b)
     end
   end
+
+  describe "#patched_merge_sort" do
+    it "actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_merge_sort)
+    end
+
+    it "sorts the random array" do
+      expect(unsorted_regular.patched_merge_sort).to eq(sorted_regular)
+    end
+
+    it "does not mutate the original array" do
+      a = [1,8,2,4,7,6,4,0]
+      b = a.patched_merge_sort
+      expect(a).not_to eq(b)
+    end
+  end
 end

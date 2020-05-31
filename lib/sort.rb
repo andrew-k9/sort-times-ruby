@@ -11,7 +11,7 @@ class Sort
   #  `:qs`, `:sort` (default sort), `:merge`, or `bogo`
   # @return [Array<Numeric>] @sorted_array
   def sort(sort_method = :sort)
-    raise_arg_error(sort_method, "sort") unless %i[quick_sort sort bogo merge].include? sort_method
+    raise_arg_error(sort_method, "sort") unless %i[quick_sort sort bogo_sort merge_sort].include? sort_method
 
     result = sort_method == :sort ? sort_method : "patched_#{sort_method}".to_sym
     update_sorted_array_and_time(result)
