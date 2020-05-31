@@ -74,12 +74,13 @@ describe Array do
 
   it "sorts the random array" do
     # it would be madness to sort a million datapoints like that...
-    a = Array.new(100) { rand(-100..100) }
+    # a size of 5 is O(n!) = 5! = 120 already for recursive stack calls O.o
+    a = Array.new(5) { rand(-100..100) }
     expect(a.patched_bogo_sort).to eq(a.sort)
   end
 
   it "does not mutate the original array" do
-    a = [1,8,2,4,7,6,4,0]
+    a = [1,8,2]
     b = a.patched_insertion_sort
     expect(a).not_to eq(b)
   end
