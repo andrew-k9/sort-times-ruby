@@ -14,8 +14,16 @@ class Array
 
 private
 
+  # given a left and right array, it will traverse both and add
+  # the smallest element of left_sub_array[i] or right_sub_array[j] to the sorted array.
+  # afterwards, it will append the remaining elements from the arrays to the end of
+  # the sorted array
+  # @param left_sub_array [Array <Ord>]
+  # @param right_sub_array [Array <Ord>]
+  # @return sorted [Array <Ord>] the sorted array of the elements of the left and right arrays
   # rubocop:disable all
   def merge_two_subarrays(left_sub_array, right_sub_array)
+    # the sorted array will create space for n extra
     sorted = []
     i, j = 0, 0
 
@@ -34,6 +42,10 @@ private
     sorted
   end
 
+  # sorts an array with a divide-and-concor methodology - it will split the
+  # array in half, getting the sorted sub-arrays and then merging them together.
+  # @param array  [Array <Ord>] the array to split
+  # @return [Array <Ord>] the sorted sub-array
   def merge_sort_private(array)
     return array if array.length < 2
 
