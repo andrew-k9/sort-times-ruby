@@ -11,14 +11,15 @@ class Sort
   #  `:qs`, `:sort` (default sort), `:merge`, or `bogo`
   # @return [Array<Numeric>] @sorted_array
   def sort(sort_method = :sort)
-    raise_arg_error(sort_method, "sort") unless %i[quick_sort sort bogo_sort merge_sort].include? sort_method
+    values = %i[quick_sort sort bogo_sort merge_sort insertion_sort]
+    raise_arg_error(sort_method, "sort") unless values.include? sort_method
 
     result = sort_method == :sort ? sort_method : "patched_#{sort_method}".to_sym
     update_sorted_array_and_time(result)
   end
 
   def print_sort_info
-    puts "For this array of size #{@original_array.length}, it took #{@time} ms to sort"
+    puts "For this array of size #{@original_array.length}, it took #{@time} seconds to sort"
   end
 
   class << self
