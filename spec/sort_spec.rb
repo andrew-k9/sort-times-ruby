@@ -50,4 +50,39 @@ describe Array do
       expect(a).not_to eq(b)
     end
   end
+
+  describe "#patched_insertion_sort" do
+    it "actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_insertion_sort)
+    end
+
+    it "sorts the random array" do
+      expect(unsorted_regular.patched_insertion_sort).to eq(sorted_regular)
+    end
+
+    it "does not mutate the original array" do
+      a = [1,8,2,4,7,6,4,0]
+      b = a.patched_insertion_sort
+      expect(a).not_to eq(b)
+    end
+  end
+
+  describe "#patched_bogo_sort" do
+  it "actually exists" do
+    expect(Array.new(1)).to respond_to(:patched_bogo_sort)
+  end
+
+  it "sorts the random array" do
+    # it would be madness to sort a million datapoints like that...
+    a = Array.new(100) { rand(-100..100) }
+    expect(a.patched_bogo_sort).to eq(a.sort)
+  end
+
+  it "does not mutate the original array" do
+    a = [1,8,2,4,7,6,4,0]
+    b = a.patched_insertion_sort
+    expect(a).not_to eq(b)
+  end
+end
+
 end
