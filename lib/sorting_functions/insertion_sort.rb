@@ -14,6 +14,9 @@ class Array
 
 private
 
+  # while iterating through an array, it will push a value, a_i, less than the
+  # the previous value down to a place such that A[a_j .. a_{i - 1}] < a_i <=
+  # A[a_{i + 1} .. a_max] for all i in A
   # rubocop:disable all
   def insertion_private
     return self if length < 2
