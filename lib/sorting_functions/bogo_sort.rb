@@ -1,11 +1,11 @@
 class Array
-  # makes a copy of the array to apply merge sort to
+  # makes a copy of the array to apply bogo sort to
   def patched_bogo_sort
     array_coppy = map(&:clone)
     array_coppy.patched_bogo_sort!
   end
 
-  # destructively calls merge sort
+  # destructively calls bogo sort
   def patched_bogo_sort!
     return self if empty?
 
@@ -24,5 +24,6 @@ private
 
     shuffled = self
     shuffled = shuffle while shuffled != sort
+    shuffled
   end
 end

@@ -68,22 +68,56 @@ describe Array do
   end
 
   describe "#patched_bogo_sort" do
-  it "actually exists" do
-    expect(Array.new(1)).to respond_to(:patched_bogo_sort)
+    it "actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_bogo_sort)
+    end
+
+    it "sorts the random array" do
+      # it would be madness to sort a million datapoints like that...
+      # a size of 5 is O(n!) = 5! = 120 already for recursive stack calls O.o
+      a = Array.new(3) { rand(-100..100) }
+      expect(a.patched_bogo_sort).to eq(a.sort)
+    end
+
+    it "does not mutate the original array" do
+      a = [1,8,2]
+      b = a.patched_bogo_sort
+      expect(a).not_to eq(b)
+    end
   end
 
-  it "sorts the random array" do
-    # it would be madness to sort a million datapoints like that...
-    # a size of 5 is O(n!) = 5! = 120 already for recursive stack calls O.o
-    a = Array.new(5) { rand(-100..100) }
-    expect(a.patched_bogo_sort).to eq(a.sort)
+  describe "#patched_selection_sort" do
+    it "actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_selection_sort)
+    end
+
+    it "sorts the random array" do
+      a = Array.new(1000) { rand(-100..100) }
+      expect(a.patched_selection_sort).to eq(a.sort)
+    end
+
+    it "does not mutate the original array" do
+      a = [1,8,2]
+      b = a.patched_selection_sort
+      expect(a).not_to eq(b)
+    end
   end
 
-  it "does not mutate the original array" do
-    a = [1,8,2]
-    b = a.patched_insertion_sort
-    expect(a).not_to eq(b)
+  describe "#patched_bubble_sort" do
+    it "actually exists" do
+      expect(Array.new(1)).to respond_to(:patched_bubble_sort)
+    end
+
+    it "sorts the random array" do
+      a = Array.new(1000) { rand(-100..100) }
+      expect(a.patched_bubble_sort).to eq(a.sort)
+    end
+
+    it "does not mutate the original array" do
+      a = [1,8,2,4,7,6,4,0]
+      b = a.patched_bubble_sort
+      expect(a).not_to eq(b)
+    end
   end
-end
 
 end
